@@ -23,6 +23,9 @@ gitlab_version: "{{ _gitlab_version }}"
 # GitLab external URL.
 gitlab_external_url: http://{{ ansible_facts['default_ipv4'].address }}
 
+# Default to not using TLS, in case we don't have a certificate
+gitlab_redirect_http_to_https: false
+
 # Set to approximately 1/4 of available RAM.
 gitlab_postgresql_shared_buffers: 256MB
 

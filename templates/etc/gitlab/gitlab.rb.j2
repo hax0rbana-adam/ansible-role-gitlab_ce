@@ -1642,7 +1642,14 @@ postgresql['shared_buffers'] = "{{ gitlab_postgresql_shared_buffers }}"
 # nginx['enable'] = true
 # nginx['client_max_body_size'] = '250m'
 # nginx['redirect_http_to_https'] = false
+{% if gitlab_redirect_http_to_https %}
+nginx['redirect_http_to_https'] = true
+{% endif %}
 # nginx['redirect_http_to_https_port'] = 80
+{% if gitlab_redirect_http_to_https %}
+gitlab_rails['nginx']['redirect_http_to_https_port'] = 80
+{% endif %}
+# The above option will override the deprecated nginx['redirect_http_to_https_port']
 
 ##! Most root CA's are included by default
 # nginx['ssl_client_certificate'] = "/etc/gitlab/ssl/ca.crt"
