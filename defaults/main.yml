@@ -43,3 +43,7 @@ gitlab_package_modify_kernel_parameters: true
 
 # By default, don't allow running `apt upgrade` to get security patches for GitLab
 gitlab_no_upgrades: true
+
+# By default, Lets Encrypt certs are not enabled
+gitlab_letsencrypt_enable: false
+# gitlab_letsencrypt_contact: it@example.com

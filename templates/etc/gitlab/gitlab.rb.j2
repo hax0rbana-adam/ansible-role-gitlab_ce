@@ -1643,7 +1643,7 @@ postgresql['shared_buffers'] = "{{ gitlab_postgresql_shared_buffers }}"
 # nginx['client_max_body_size'] = '250m'
 # nginx['redirect_http_to_https'] = false
 {% if gitlab_redirect_http_to_https %}
-nginx['redirect_http_to_https'] = true
+gitlab_rails['nginx']['redirect_http_to_https'] = true
 {% endif %}
 # nginx['redirect_http_to_https_port'] = 80
 {% if gitlab_redirect_http_to_https %}
@@ -2757,8 +2757,16 @@ node_exporter['enable'] = {{ gitlab_node_exporter_enable | bool | lower }}
 ################################################################################
 # Let's Encrypt integration
 ################################################################################
+{% if gitlab_letsencrypt_enable %}
+letsencrypt['enable'] = true
+{% else %}
 # letsencrypt['enable'] = nil
+{% endif %}
+{% if gitlab_letsencrypt_contact is defined %}
+letsencrypt['contact_emails'] = [ '{{ gitlab_letsencrypt_contact }}' ] # This should be an array of email addresses to add as contacts
+{% else %}
 # letsencrypt['contact_emails'] = [] # This should be an array of email addresses to add as contacts
+{% endif %}
 # letsencrypt['group'] = 'root'
 # letsencrypt['key_size'] = 2048
 # letsencrypt['owner'] = 'root'
